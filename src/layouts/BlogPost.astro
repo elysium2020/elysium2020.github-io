@@ -4,15 +4,15 @@ const { frontmatter } = Astro.props;
 ---
 
 <BlogFrame pageTitle={frontmatter.title}>
-    <main class="mx-auto max-w-screen-xl bg-white">
-        <article class="prose-xl p-4">
-            <h1 class="!mb-2">
-                {frontmatter.title}
-            </h1>
-            <p class="not-prose mt-2 mb-6 text-base text-gray-500 italic">
-                Last modified: {frontmatter.pubDate.toString()}
-            </p>
-            <slot />
-        </article>
-    </main>
+  <main class="mx-auto max-w-screen-xl bg-white">
+    <article class="prose-xl p-4">
+      <h1 class="!mb-2">
+        {frontmatter.title}
+      </h1>
+      <p class="not-prose mt-2 mb-6 text-base text-gray-500 italic">
+        Last modified: {frontmatter.pubDate.toString()}
+      </p>
+      <slot />
+    </article>
+  </main>
 </BlogFrame>
