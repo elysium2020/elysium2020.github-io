@@ -1,0 +1,21 @@
+---
+import BlogFrame from '../layouts/BlogFrame.astro';
+import '../styles/global.css';
+const allPosts = Object.values(
+  import.meta.glob('./posts/*.md', { eager: true }),
+);
+---
+
+<BlogFrame pageTitle="Elysium's blog">
+  <main class="mx-auto max-w-screen-xl p-4">
+    <ul>
+      {
+        allPosts.map((post: any) => (
+          <li>
+            <a href={post.url}>{post.frontmatter.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BlogFrame>
