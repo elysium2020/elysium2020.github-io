@@ -1,9 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "schedule:daily",
-    "group:all"
-  ],
+  "extends": ["config:recommended", "schedule:daily", "group:all"],
   "rangeStrategy": "bump"
 }
