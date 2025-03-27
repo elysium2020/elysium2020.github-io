@@ -73,3 +73,4 @@ Benchmark 1: bun install
 - [ ] Rss 订阅
 - [ ] 暗黑模式
 - [ ] 移动端
+- [ ] 更好的元信息
