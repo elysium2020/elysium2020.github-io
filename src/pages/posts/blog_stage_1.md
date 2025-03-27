@@ -1,6 +1,7 @@
 ---
 layout: ../../layouts/BlogPost.astro
 title: '搭建我的博客（一）'
+description: '初搭建博客的一些碎碎念'
 pubDate: 2025-03-27 10:32
 tags: ['astro', 'blog']
 ---
