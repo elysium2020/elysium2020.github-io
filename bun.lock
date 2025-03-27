@@ -2,6 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
+      "name": "Astro Blog",
       "dependencies": {
         "@tailwindcss/vite": "^4.0.17",
         "astro": "^5.5.5",
