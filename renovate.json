@@ -1,5 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "schedule:daily", "group:all"],
-  "rangeStrategy": "bump"
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "matchManagers": ["bun"],
+      "groupName": "Bun Packages"
+    }
+  ],
+  "automerge": true,
+  "automergeType": "branch",
+  "platformAutomerge": true
 }
