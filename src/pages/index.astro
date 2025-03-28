@@ -2,18 +2,31 @@
 import BlogFrame from '../layouts/BlogFrame.astro';
 import '../styles/global.css';
 
+// Define types for post data
+type Post = {
+  url: string;
+  frontmatter: {
+    title: string;
+    pubDate: string;
+    description: string;
+    tags: string[];
+  };
+};
+
 const latestPosts = Object.values(
-  import.meta.glob('./posts/*.md', { eager: true }),
+  import.meta.glob<Post>('./posts/*.md', { eager: true }),
 )
   .sort(
-    (a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate),
+    (a: Post, b: Post) =>
+      new Date(b.frontmatter.pubDate).getTime() -
+      new Date(a.frontmatter.pubDate).getTime(),
   )
   .slice(0, 4);
 
 const popularTags = [
   ...new Set(
-    Object.values(import.meta.glob('./posts/*.md', { eager: true }))
-      .map((post) => post.frontmatter.tags)
+    Object.values(import.meta.glob<Post>('./posts/*.md', { eager: true }))
+      .map((post: Post) => post.frontmatter.tags)
       .flat(),
   ),
 ].slice(0, 8);
@@ -82,7 +95,7 @@ const popularTags = [
       </div>
       <div class="grid gap-6 md:grid-cols-2">
         {
-          latestPosts.map((post) => (
+          latestPosts.map((post: Post) => (
             <article class="group relative rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
               <a
                 href={post.url}
@@ -104,7 +117,7 @@ const popularTags = [
                   {post.frontmatter.description}
                 </p>
                 <div class="mt-4 flex flex-wrap gap-2">
-                  {post.frontmatter.tags?.slice(0, 3).map((tag) => (
+                  {post.frontmatter.tags?.slice(0, 3).map((tag: string) => (
                     <span class="rounded-md bg-gray-100 px-2 py-1 text-sm text-gray-600">
                       #{tag}
                     </span>
@@ -120,7 +133,7 @@ const popularTags = [
       <h2 class="mb-8 text-2xl font-bold text-gray-900">热门标签</h2>
       <div class="flex flex-wrap gap-3">
         {
-          popularTags.map((tag) => (
+          popularTags.map((tag: string) => (
             <a
               href={`/tags/${tag}`}
               class="rounded-full border border-gray-200 bg-white px-4 py-2 text-gray-700 shadow-sm transition-all hover:-translate-y-0.5 hover:text-blue-600 hover:shadow-md">

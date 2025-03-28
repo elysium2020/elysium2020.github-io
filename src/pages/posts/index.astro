@@ -1,10 +1,22 @@
 ---
 import BlogFrame from '../../layouts/BlogFrame.astro';
 
+// Define types for post data
+type Post = {
+  url: string;
+  frontmatter: {
+    title: string;
+    pubDate: string;
+    description: string;
+  };
+};
+
 const allPosts = Object.values(
-  import.meta.glob('./*.md', { eager: true }),
+  import.meta.glob<Post>('./*.md', { eager: true }),
 ).sort(
-  (a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate),
+  (a: Post, b: Post) =>
+    new Date(b.frontmatter.pubDate).getTime() -
+    new Date(a.frontmatter.pubDate).getTime(),
 );
 ---
 
@@ -12,7 +24,7 @@ const allPosts = Object.values(
   <main class="mx-auto max-w-screen-xl px-4 py-8">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
       {
-        allPosts.map((post: any) => (
+        allPosts.map((post: Post) => (
           <article class="group relative flex flex-col rounded-lg border border-gray-200 bg-white shadow-md transition-shadow duration-200 hover:shadow-lg">
             <a
               href={post.url}

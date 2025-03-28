@@ -1,20 +1,31 @@
 ---
 import BlogFrame from '../../layouts/BlogFrame.astro';
 
+type Post = {
+  url: string;
+  frontmatter: {
+    title: string;
+    pubDate: string;
+    description: string;
+    tags: string[];
+  };
+};
+
 export async function getStaticPaths() {
   const allPosts = Object.values(
-    import.meta.glob('../posts/*.md', { eager: true }),
+    import.meta.glob<Post>('../posts/*.md', { eager: true }),
   );
   const uniqueTags = [
-    ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+    ...new Set(allPosts.map((post: Post) => post.frontmatter.tags).flat()),
   ];
-  return uniqueTags.map((tag) => {
+  return uniqueTags.map((tag: string) => {
     const filteredPosts = allPosts
-      .filter((post: any) => post.frontmatter.tags.includes(tag))
+      .filter((post: Post) => post.frontmatter.tags.includes(tag))
       .sort(
-        (a, b) =>
-          new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate),
-      ); // 添加排序
+        (a: Post, b: Post) =>
+          new Date(b.frontmatter.pubDate).getTime() -
+          new Date(a.frontmatter.pubDate).getTime(),
+      );
     return {
       params: { tag },
       props: { posts: filteredPosts },
@@ -40,7 +51,7 @@ const { posts } = Astro.props;
     </div>
     <div class="grid gap-6 md:gap-8">
       {
-        posts.map((post: any) => (
+        posts.map((post: Post) => (
           <article class="group relative rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
             <a
               href={post.url}
@@ -63,11 +74,7 @@ const { posts } = Astro.props;
                 <div class="flex space-x-2">
                   {post.frontmatter.tags?.map((t: string) => (
                     <span
-                      class={`rounded-full px-3 py-1 text-sm ${
-                        t === tag ?
-                          'bg-blue-100 text-blue-800'
-                        : 'bg-gray-100 text-gray-600'
-                      }`}>
+                      class={`rounded-full px-3 py-1 text-sm ${t === tag ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600'}`}>
                       #{t}
                     </span>
                   ))}
