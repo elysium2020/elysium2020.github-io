@@ -12,12 +12,13 @@ const {
 } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#4285f4" />
     <title>{pageTitle}</title>
 
     {description && <meta name="description" content={description} />}
@@ -43,6 +44,9 @@ const {
     }
 
     {url && <link rel="canonical" href={url} />}
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   </head>
   <body>
     <Header />

@@ -33,12 +33,14 @@ const popularTags = [
 
 // Meta information
 const siteTitle = "Elysium's Blog";
+const siteDescription = "Elysium's personal blog.";
 const siteAuthor = 'Elysium';
 const siteUrl = Astro.url.toString();
 ---
 
 <BlogFrame
   pageTitle={siteTitle}
+  description={siteDescription}
   author={siteAuthor}
   url={siteUrl}
   type="website">
@@ -59,7 +61,8 @@ const siteUrl = Astro.url.toString();
             class="mr-2 h-5 w-5"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+            aria-hidden="true">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -76,7 +79,8 @@ const siteUrl = Astro.url.toString();
             class="mr-2 h-5 w-5"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+            aria-hidden="true">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -95,7 +99,11 @@ const siteUrl = Astro.url.toString();
           href="/posts"
           class="flex items-center text-blue-600 hover:text-blue-800">
           查看全部
-          <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+          <svg
+            class="ml-1 h-4 w-4"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            aria-hidden="true">
             <path
               fill-rule="evenodd"
               d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -114,7 +122,9 @@ const siteUrl = Astro.url.toString();
               />
               <div class="p-6">
                 <div class="mb-4">
-                  <time class="text-sm text-gray-500">
+                  <time
+                    datetime={new Date(post.frontmatter.pubDate).toISOString()}
+                    class="text-sm text-gray-500">
                     {new Date(post.frontmatter.pubDate).toLocaleDateString(
                       'zh-CN',
                     )}

@@ -3,12 +3,17 @@ import BlogFrame from './BlogFrame.astro';
 const { frontmatter } = Astro.props;
 ---
 
-<BlogFrame pageTitle={frontmatter.title}>
+<BlogFrame
+  pageTitle={frontmatter.title}
+  description={frontmatter.description || frontmatter.title}>
   <main class="mx-auto max-w-screen-xl p-4">
     <header class="mb-10">
+      <!-- Load KaTeX only when needed -->
       <link
-        rel="stylesheet"
+        rel="preload"
+        as="style"
         href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+        onload="this.onload=null;this.rel='stylesheet'"
         integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib"
         crossorigin="anonymous"
       />
@@ -23,7 +28,8 @@ const { frontmatter } = Astro.props;
             class="h-5 w-5 text-blue-600"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+            aria-hidden="true">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -31,7 +37,7 @@ const { frontmatter } = Astro.props;
               d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
             ></path>
           </svg>
-          <time>
+          <time datetime={new Date(frontmatter.pubDate).toISOString()}>
             {
               new Date(frontmatter.pubDate).toLocaleDateString('zh-CN', {
                 year: 'numeric',
@@ -65,7 +71,8 @@ const { frontmatter } = Astro.props;
           class="mr-2 h-5 w-5"
           fill="none"
           stroke="currentColor"
-          viewBox="0 0 24 24">
+          viewBox="0 0 24 24"
+          aria-hidden="true">
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
