@@ -30,18 +30,28 @@ const popularTags = [
       .flat(),
   ),
 ].slice(0, 8);
+
+// Meta information
+const siteTitle = "Elysium's Blog";
+const siteAuthor = 'Elysium';
+const siteUrl = Astro.url.toString();
 ---
 
-<BlogFrame pageTitle="Elysium's Blog">
-  <main class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8">
-    <section class="mb-16 text-center lg:mb-24">
-      <h1 class="mb-6 text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
+<BlogFrame
+  pageTitle={siteTitle}
+  author={siteAuthor}
+  url={siteUrl}
+  type="website">
+  <main class="mx-auto max-w-screen-xl p-4">
+    <section class="mb-16 text-center lg:mb-20">
+      <h1
+        class="mb-4 text-4xl leading-tight font-bold text-gray-900 sm:text-5xl md:text-6xl">
         <span
           class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Elysium's Blog
         </span>
       </h1>
-      <div class="flex justify-center space-x-4">
+      <div class="flex flex-wrap justify-center gap-4">
         <a
           href="/posts"
           class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-blue-700">

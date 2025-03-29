@@ -2,7 +2,14 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
-const { pageTitle } = Astro.props;
+const {
+  pageTitle,
+  description,
+  author,
+  image,
+  url,
+  type = 'website',
+} = Astro.props;
 ---
 
 <html lang="en">
@@ -12,6 +19,30 @@ const { pageTitle } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
+
+    {description && <meta name="description" content={description} />}
+    {author && <meta name="author" content={author} />}
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={pageTitle} />
+    {description && <meta property="og:description" content={description} />}
+    {url && <meta property="og:url" content={url} />}
+    {image && <meta property="og:image" content={new URL(image, url).href} />}
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={pageTitle} />
+    {
+      description && (
+        <meta property="twitter:description" content={description} />
+      )
+    }
+    {
+      image && (
+        <meta property="twitter:image" content={new URL(image, url).href} />
+      )
+    }
+
+    {url && <link rel="canonical" href={url} />}
   </head>
   <body>
     <Header />
